@@ -31,8 +31,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private lateinit var signUpButton: Button
     private lateinit var loginButton: Button
     private var mListener: OnFragmentInteractionListener? = null
-    val FRAGMENT_TAG = "Login_Fragment"
-
+    companion object {
+        const val FRAGMENT_TAG = "Login_Fragment"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -142,7 +143,5 @@ class LoginFragment : Fragment(), View.OnClickListener {
         fun onFragmentInteraction(uri: Uri)
     }
 
-    companion object {
-        val FRAGMENT_TAG = "Login_Fragment"
-    }
+
 }// Required empty public constructor
