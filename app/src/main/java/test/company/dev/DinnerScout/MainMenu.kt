@@ -1,35 +1,38 @@
 package test.company.dev.DinnerScout
-
-
 import LoginFragment
-import android.Manifest
 import android.annotation.TargetApi
 import android.app.AppOpsManager
 import android.content.Context
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.appcompat.app.AppCompatActivity
-import android.util.Log
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v4.app.NotificationCompat
+import android.support.v4.app.NotificationManagerCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.yelp.fusion.client.connection.interceptors.ApiKeyInterceptor;
+import com.yelp.fusion.client.exception.ErrorHandlingInterceptor;
+import com.yelp.fusion.client.models.ApiKey;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+
+
+import test.company.dev.DinnerScout.fragments.SignupFragment
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
+import com.yelp.fusion.client.models.SearchResponse
+import android.support.v4.app.SupportActivity
+import android.support.v4.app.SupportActivity.ExtraData
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.yelp.fusion.client.models.Business
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import test.company.dev.DinnerScout.fragments.SignupFragment
 
 
 class MainMenu : AppCompatActivity(), View.OnClickListener,
@@ -45,19 +48,10 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
 //        var appsMonitoredKey: String? =
 //            null    // allows creation of user unique sharedpref for checkboxes
     }
-
-
-    // inside a basic activity
-
-
-    private var locationManager: LocationManager? = null
-
-
     private var manager: FragmentManager? = null
     private val trans: FragmentTransaction? = null
-    private var lat : Double = 0.0
-    private var long : Double = 0.0
     var business : Business? = null
+    var businesses : ArrayList<Business?> = arrayListOf()
     var params:HashMap<String, String> = HashMap()
     var apiFactory = YelpFusionApiFactory()
     var yelpFusionApi = apiFactory.createAPI(API_KEY)
@@ -66,81 +60,47 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         setContentView(R.layout.activity_main)
         inflateFirebaseLogin()
 
-        Dexter.withActivity(this)
-            .withPermissions(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            .withListener(object : MultiplePermissionsListener {
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>?,
-                    token: PermissionToken?
-                ) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
 
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-                    // Create persistent LocationManager reference
-                    locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-
-                    try {
-                        // Request location updates
-                        locationManager?.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            0L,
-                            0f,
-                            locationListener
-                        );
-                    } catch (ex: SecurityException) {
-                        Log.d("myTag", "Security Exception, no location available");
-                    }
-                }
-
-            }).check();
-
-
-        params.put("latitude",  lat.toString())
-        params.put("longitude",long.toString())
-//        val call = yelpFusionApi.getBusinessSearch(params)
+        params.put("latitude","40.581140")
+        params.put("longitude","-111.914184")
 //        val response = call.execute()
-        var a = 1 + 1
+//        val call = yelpFusionApi.getBusinessSearch(params);
 
-        val call = yelpFusionApi.getBusiness("gR9DTbKCvezQlqvD7_FzPw");
-        call.enqueue(object : Callback<Business> {
+//        Call<SearchResponse> = yelpFusionApi.getBusinessSearch(params);
 
-            override fun onResponse(call: Call<Business>?, response: Response<Business>) {
-                if (response.isSuccessful) {
-                     business = response.body()
-                    var id = business?.id
-                     var a  = 1 + 1
-                    var b = 1 + a
 
+
+    val call = yelpFusionApi.getBusinessSearch(params);
+        call.enqueue(object : Callback<SearchResponse> {
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(call : Call<SearchResponse>, response : Response<SearchResponse> ) {
+                if(response != null && response.isSuccessful) {
+//                    val searchResponse : SearchResponse? = call.execute().body()
+                        businesses = response.body()?.businesses ?: arrayListOf()
+
+                    var a = 1 + 1
+                    var b  = a + 1
                 }
                 // Update UI text with the Business object.
 
             }
-            override fun onFailure(call: Call<Business>?, t: Throwable?) {
-                // HTTP error happened, do something to handle it.
-            }
+
+
         })
 
-    }
 
-    //define the listener
-    private val locationListener: LocationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            long = location.longitude
-            lat = location.latitude
-            Log.d("myTag", String.format("UPDATED LOCATION %f,%f",lat,long));
 
-        }
 
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-        override fun onProviderEnabled(provider: String) {}
-        override fun onProviderDisabled(provider: String) {}
-    }
+}
+
+
+
+
+
+
 
 
     /**
@@ -225,5 +185,9 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
+
+}
+
+private fun <T> Call<T>.enqueue(callback: Callback<Business>) {
 
 }
