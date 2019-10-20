@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import test.company.dev.DinnerScout.R
+import test.company.dev. DinnerScout.R
 import com.google.firebase.auth.FirebaseAuth
 
 import test.company.dev.DinnerScout.fragments.SignupFragment
