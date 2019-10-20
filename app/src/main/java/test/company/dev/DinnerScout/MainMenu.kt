@@ -177,7 +177,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
     private fun inflatePreferencesFragment(){
         val manager = supportFragmentManager
         val trans = manager.beginTransaction()
-        val fragment = LoginFragment()
+        val fragment = PreferencesFragment()
         trans.add(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("tag")
         trans.commit()
 
