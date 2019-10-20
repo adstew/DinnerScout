@@ -1,4 +1,4 @@
-package test.company.dev.ufeedme
+package test.company.dev.DinnerScout
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

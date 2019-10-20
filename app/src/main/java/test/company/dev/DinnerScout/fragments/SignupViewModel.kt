@@ -1,4 +1,4 @@
-package test.company.dev.ufeedme.fragments
+package test.company.dev.DinnerScout.fragments
 
 import android.arch.lifecycle.ViewModel
 

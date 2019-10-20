@@ -1,4 +1,4 @@
-package test.company.dev.ufeedme
+package test.company.dev.DinnerScout
 
 import org.junit.Test
 

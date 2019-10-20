@@ -1,24 +1,20 @@
-package test.company.dev.ufeedme
+package test.company.dev.DinnerScout
 import LoginFragment
 import android.annotation.TargetApi
 import android.app.AppOpsManager
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Button
 
 
-import test.company.dev.ufeedme.R
-import test.company.dev.ufeedme.fragments.SignupFragment
+import test.company.dev.DinnerScout.fragments.SignupFragment
 
 class MainMenu : AppCompatActivity(), View.OnClickListener,
     SignupFragment.OnFragmentInteractionListener, LoginFragment.OnFragmentInteractionListener{

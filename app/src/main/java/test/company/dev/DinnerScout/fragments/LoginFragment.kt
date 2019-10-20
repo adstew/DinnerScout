@@ -10,10 +10,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import test.company.dev.ufeedme.R
+import test.company.dev.DinnerScout.R
 import com.google.firebase.auth.FirebaseAuth
 
-import test.company.dev.ufeedme.fragments.SignupFragment
+import test.company.dev.DinnerScout.fragments.SignupFragment
 
 
 
@@ -104,7 +104,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         )
 
         when (view.id) {
-            test.company.dev.ufeedme.R.id.loginButton -> userLogin()
+            test.company.dev.DinnerScout.R.id.loginButton -> userLogin()
             R.id.signUpButton -> {
                 val manager = activity!!.supportFragmentManager
                 val trans = manager.beginTransaction()

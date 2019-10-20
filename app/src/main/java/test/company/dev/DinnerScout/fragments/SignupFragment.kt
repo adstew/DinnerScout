@@ -1,6 +1,5 @@
-package test.company.dev.ufeedme.fragments
+package test.company.dev.DinnerScout.fragments
 
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -13,14 +12,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import kotlinx.android.synthetic.main.signup_fragment.*
 
-import test.company.dev.ufeedme.R
+import test.company.dev.DinnerScout.R
 
 class SignupFragment : Fragment(),View.OnClickListener {
     companion object {
