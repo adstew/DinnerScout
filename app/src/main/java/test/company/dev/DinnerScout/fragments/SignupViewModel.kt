@@ -1,6 +1,6 @@
 package test.company.dev.DinnerScout.fragments
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 
 class SignupViewModel : ViewModel() {
     // TODO: Implement the ViewModel

@@ -1,38 +1,35 @@
 package test.company.dev.DinnerScout
+
+
 import LoginFragment
+import android.Manifest
 import android.annotation.TargetApi
 import android.app.AppOpsManager
 import android.content.Context
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
 import android.view.View
-import com.yelp.fusion.client.connection.interceptors.ApiKeyInterceptor;
-import com.yelp.fusion.client.exception.ErrorHandlingInterceptor;
-import com.yelp.fusion.client.models.ApiKey;
-
-import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-
-
-import test.company.dev.DinnerScout.fragments.SignupFragment
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
-import com.yelp.fusion.client.models.SearchResponse
-import android.support.v4.app.SupportActivity
-import android.support.v4.app.SupportActivity.ExtraData
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.yelp.fusion.client.models.Business
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import test.company.dev.DinnerScout.fragments.SignupFragment
 
 
 class MainMenu : AppCompatActivity(), View.OnClickListener,
@@ -48,9 +45,19 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
 //        var appsMonitoredKey: String? =
 //            null    // allows creation of user unique sharedpref for checkboxes
     }
+
+
+    // inside a basic activity
+
+
+    private var locationManager: LocationManager? = null
+
+
     private var manager: FragmentManager? = null
     private val trans: FragmentTransaction? = null
-     var business : Business? = null
+    private var lat : Double = 0.0
+    private var long : Double = 0.0
+    var business : Business? = null
     var params:HashMap<String, String> = HashMap()
     var apiFactory = YelpFusionApiFactory()
     var yelpFusionApi = apiFactory.createAPI(API_KEY)
@@ -59,9 +66,43 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         setContentView(R.layout.activity_main)
         inflateFirebaseLogin()
 
+        Dexter.withActivity(this)
+            .withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: MutableList<PermissionRequest>?,
+                    token: PermissionToken?
+                ) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
 
-        params.put("latitude",  "40.581140")
-        params.put("longitude","-111.914184")
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+                    // Create persistent LocationManager reference
+                    locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
+
+                    try {
+                        // Request location updates
+                        locationManager?.requestLocationUpdates(
+                            LocationManager.NETWORK_PROVIDER,
+                            0L,
+                            0f,
+                            locationListener
+                        );
+                    } catch (ex: SecurityException) {
+                        Log.d("myTag", "Security Exception, no location available");
+                    }
+                }
+
+            }).check();
+
+
+        params.put("latitude",  lat.toString())
+        params.put("longitude",long.toString())
 //        val call = yelpFusionApi.getBusinessSearch(params)
 //        val response = call.execute()
         var a = 1 + 1
@@ -69,10 +110,13 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val call = yelpFusionApi.getBusiness("gR9DTbKCvezQlqvD7_FzPw");
         call.enqueue(object : Callback<Business> {
 
-            override fun onResponse(call : Call<Business>?, response : Response<Business> ) {
-                if(response != null && response.isSuccessful) {
+            override fun onResponse(call: Call<Business>?, response: Response<Business>) {
+                if (response.isSuccessful) {
                      business = response.body()
+                    var id = business?.id
                      var a  = 1 + 1
+                    var b = 1 + a
+
                 }
                 // Update UI text with the Business object.
 
@@ -81,71 +125,22 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
                 // HTTP error happened, do something to handle it.
             }
         })
-        // Initialize view variables with respective IDs.
-//        settingsButton = findViewById(R.id.settingsButton)
-//        aboutButton = findViewById(R.id.aboutButton)
-//        usageButton = findViewById(R.id.usageButton)
 
+    }
 
+    //define the listener
+    private val locationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            long = location.longitude
+            lat = location.latitude
+            Log.d("myTag", String.format("UPDATED LOCATION %f,%f",lat,long));
 
-        // Inflates Firebase login
+        }
 
-        // creates notification bar
-//        createNotificationChannel()
-//        modifyNotification("stop")
-
-
-        // Method to used with initial install of app to get proper system level permission
-        // allowing checking of foreground app
-//        requestUsageStatsPermission()
-
-
-        // Load package, friendlynames, and apps to be monitored into sharedresources
-        // also clear old stale usage data. New/current data retrieved via intent svc
-        //        String[] packageKeys = this.getResources().getStringArray(R.array.package_names);
-        //        String[] friendlyNameAppValues = this.getResources().getStringArray(R.array.friendly_app_names);
-        //
-        //        Log.d("intentsvc", "2: " + MainMenu.uid);
-        //
-        //        SharedPreferences sharedPrefPackageNames = this.getSharedPreferences("package_friendly_names",Context.MODE_PRIVATE);
-        //        SharedPreferences.Editor editor1 = sharedPrefPackageNames.edit();
-        //        SharedPreferences sharedPrefAppsMonitored = this.getSharedPreferences("apps_monitored",Context.MODE_PRIVATE);
-        //        SharedPreferences.Editor editor2 = sharedPrefAppsMonitored.edit();
-        //        SharedPreferences usageData = this.getSharedPreferences("USAGE_DATA", 0);
-        //        SharedPreferences.Editor editor3 = usageData.edit();
-        //        editor3.clear();
-        //        editor3.commit();
-        //
-        //        for (int i = 0; i < Math.min(packageKeys.length, friendlyNameAppValues.length); ++i) {
-        //            editor1.putString(packageKeys[i], friendlyNameAppValues[i]);
-        //
-        //            if(!sharedPrefAppsMonitored.getBoolean(packageKeys[i], false)) //if key/value doesn't exist create it otherwise do nothing
-        //                editor2.putBoolean(packageKeys[i], false);
-        //        }
-        //        editor1.commit();
-        //        editor2.commit();
-
-        //Store Firebase UID
-        // Save username for later usage
-        //        SharedPreferences loginInfo = this.getSharedPreferences("LOGIN", 0);
-        //        SharedPreferences.Editor editor3 = loginInfo.edit();
-        //        editor3.clear();
-        //        editor3.commit();
-
-
-        //editor3.putString("userID", uid);
-        //editor3.commit();
-
-
-
-
-}
-
-
-
-
-
-
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
 
 
     /**
