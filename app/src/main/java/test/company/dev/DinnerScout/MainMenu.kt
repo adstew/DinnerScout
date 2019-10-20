@@ -50,7 +50,8 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
     }
     private var manager: FragmentManager? = null
     private val trans: FragmentTransaction? = null
-     var business : Business? = null
+    var business : Business? = null
+    var businesses : ArrayList<Business?> = arrayListOf()
     var params:HashMap<String, String> = HashMap()
     var apiFactory = YelpFusionApiFactory()
     var yelpFusionApi = apiFactory.createAPI(API_KEY)
@@ -60,81 +61,35 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         inflateFirebaseLogin()
 
 
-        params.put("latitude",  "40.581140")
+        params.put("latitude","40.581140")
         params.put("longitude","-111.914184")
-//        val call = yelpFusionApi.getBusinessSearch(params)
 //        val response = call.execute()
-        var a = 1 + 1
+//        val call = yelpFusionApi.getBusinessSearch(params);
 
-        val call = yelpFusionApi.getBusiness("gR9DTbKCvezQlqvD7_FzPw");
-        call.enqueue(object : Callback<Business> {
+//        Call<SearchResponse> = yelpFusionApi.getBusinessSearch(params);
 
-            override fun onResponse(call : Call<Business>?, response : Response<Business> ) {
+
+
+    val call = yelpFusionApi.getBusinessSearch(params);
+        call.enqueue(object : Callback<SearchResponse> {
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(call : Call<SearchResponse>, response : Response<SearchResponse> ) {
                 if(response != null && response.isSuccessful) {
-                     business = response.body()
-                     var a  = 1 + 1
+//                    val searchResponse : SearchResponse? = call.execute().body()
+                        businesses = response.body()?.businesses ?: arrayListOf()
+
+                    var a = 1 + 1
+                    var b  = a + 1
                 }
                 // Update UI text with the Business object.
 
             }
-            override fun onFailure(call: Call<Business>?, t: Throwable?) {
-                // HTTP error happened, do something to handle it.
-            }
+
+
         })
-        // Initialize view variables with respective IDs.
-//        settingsButton = findViewById(R.id.settingsButton)
-//        aboutButton = findViewById(R.id.aboutButton)
-//        usageButton = findViewById(R.id.usageButton)
-
-
-
-        // Inflates Firebase login
-
-        // creates notification bar
-//        createNotificationChannel()
-//        modifyNotification("stop")
-
-
-        // Method to used with initial install of app to get proper system level permission
-        // allowing checking of foreground app
-//        requestUsageStatsPermission()
-
-
-        // Load package, friendlynames, and apps to be monitored into sharedresources
-        // also clear old stale usage data. New/current data retrieved via intent svc
-        //        String[] packageKeys = this.getResources().getStringArray(R.array.package_names);
-        //        String[] friendlyNameAppValues = this.getResources().getStringArray(R.array.friendly_app_names);
-        //
-        //        Log.d("intentsvc", "2: " + MainMenu.uid);
-        //
-        //        SharedPreferences sharedPrefPackageNames = this.getSharedPreferences("package_friendly_names",Context.MODE_PRIVATE);
-        //        SharedPreferences.Editor editor1 = sharedPrefPackageNames.edit();
-        //        SharedPreferences sharedPrefAppsMonitored = this.getSharedPreferences("apps_monitored",Context.MODE_PRIVATE);
-        //        SharedPreferences.Editor editor2 = sharedPrefAppsMonitored.edit();
-        //        SharedPreferences usageData = this.getSharedPreferences("USAGE_DATA", 0);
-        //        SharedPreferences.Editor editor3 = usageData.edit();
-        //        editor3.clear();
-        //        editor3.commit();
-        //
-        //        for (int i = 0; i < Math.min(packageKeys.length, friendlyNameAppValues.length); ++i) {
-        //            editor1.putString(packageKeys[i], friendlyNameAppValues[i]);
-        //
-        //            if(!sharedPrefAppsMonitored.getBoolean(packageKeys[i], false)) //if key/value doesn't exist create it otherwise do nothing
-        //                editor2.putBoolean(packageKeys[i], false);
-        //        }
-        //        editor1.commit();
-        //        editor2.commit();
-
-        //Store Firebase UID
-        // Save username for later usage
-        //        SharedPreferences loginInfo = this.getSharedPreferences("LOGIN", 0);
-        //        SharedPreferences.Editor editor3 = loginInfo.edit();
-        //        editor3.clear();
-        //        editor3.commit();
-
-
-        //editor3.putString("userID", uid);
-        //editor3.commit();
 
 
 
@@ -230,5 +185,9 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
+
+}
+
+private fun <T> Call<T>.enqueue(callback: Callback<Business>) {
 
 }
