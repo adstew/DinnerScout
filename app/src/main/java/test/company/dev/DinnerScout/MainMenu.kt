@@ -20,6 +20,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.Toast
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -28,6 +29,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
 import com.yelp.fusion.client.models.SearchResponse
 import com.yelp.fusion.client.models.Business
+import kotlinx.android.synthetic.main.fragment_preferences.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,12 +45,54 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
             R.id.preferencesButton -> {
                 inflatePreferencesFragment()
             }
+            R.id.findRestButton -> {
+                params.put("location", "New York City")
+//        params.put("latitude", lat.toString())
+//        params.put("longitutde", long.toString())
+//        params.put("latitude", "37.786882")
+//        params.put("longitude", "-122.399972")
+//        params.put("radius","400")
+//        params.put("open_now","true")
+//        params.put("price","1")
+
+
+//        val call = yelpFusionApi.getBusinessSearch(params)
+//        val response = call.execute()
+
+
+
+                val call = yelpFusionApi.getBusinessSearch(params);
+                call.enqueue(
+                object : Callback<SearchResponse> {
+
+                        override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+
+                        }
+                        override fun onResponse(
+                            call: Call<SearchResponse>,
+                            response: Response<SearchResponse>
+                        ) {
+                            if (response != null && response.isSuccessful) {
+//                    val searchResponse : SearchResponse? = call.execute().body()
+                                businesses = response.body()?.businesses ?: arrayListOf()
+                                Log.d("businessTag", businesses.size.toString())
+                                var a = 1 + 1
+                                var b = a + 1
+                                val randomRestaurant : Int = (0 until businesses.size-1).shuffled().first()
+                                Toast.makeText(applicationContext, businesses[randomRestaurant]?.name, Toast.LENGTH_SHORT).show()
+
+                            }
+
+                        }
+                    })
+
+
+            }
         }
     }
 
     companion object {
-        val API_KEY: String =
-            "M0CMWi9fgorumQJ8FK5oEL7k8npWFFovJd7LP0WQ55zjcVO1Nkkiai_iaWWAuTKv5Qu-ZD3oUG4gprEAnrNo7GJxNUGK47vcWdbp1WDYPDjvRj8YA-bGcepEQ62rXXYx"
+        val API_KEY: String = "M0CMWi9fgorumQJ8FK5oEL7k8npWFFovJd7LP0WQ55zjcVO1Nkkiai_iaWWAuTKv5Qu-ZD3oUG4gprEAnrNo7GJxNUGK47vcWdbp1WDYPDjvRj8YA-bGcepEQ62rXXYx"
 //        val NOTIFICATION_ID = 1
 //        var uid: String? = null
 //        var appsMonitoredKey: String? =
@@ -73,11 +117,13 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
     var params: HashMap<String, String> = HashMap()
     var apiFactory = YelpFusionApiFactory()
     var yelpFusionApi = apiFactory.createAPI(API_KEY)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inflateFirebaseLogin()
         preferencesButton = findViewById(R.id.preferencesButton)
+        findRestaurantButton = findViewById(R.id.findRestButton)
 
         Dexter.withActivity(this)
             .withPermissions(
@@ -114,35 +160,9 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
             }).check();
 
         preferencesButton.setOnClickListener(this)
-        params.put("latitude", lat.toString())
-        params.put("longitude", long.toString())
-//        val call = yelpFusionApi.getBusinessSearch(params)
-//        val response = call.execute()
+        findRestaurantButton.setOnClickListener(this)
 
 
-
-        val call = yelpFusionApi.getBusinessSearch(params);
-        call.enqueue(
-            object : Callback<SearchResponse> {
-                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
-
-                override fun onResponse(
-                    call: Call<SearchResponse>,
-                    response: Response<SearchResponse>
-                ) {
-                    if (response != null && response.isSuccessful) {
-//                    val searchResponse : SearchResponse? = call.execute().body()
-                        businesses = response.body()?.businesses ?: arrayListOf()
-
-                        var a = 1 + 1
-                        var b = a + 1
-
-                    }
-
-                }
-            })
 
 
     }
@@ -182,6 +202,11 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val fragment = PreferencesFragment.newInstance(lat.toString(), long.toString())
         trans.add(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("tag")
         trans.commit()
+
+    }
+
+      fun generateRestaurant(){
+
 
     }
     override fun onFragmentInteraction(uri: Uri) {
