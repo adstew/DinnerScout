@@ -9,7 +9,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "test.company.dev.ufeedme"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -20,6 +20,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+repositories {
+    maven {
+        url  "https://dl.bintray.com/ranga543/android"
     }
 }
 
@@ -35,5 +41,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
     implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'io.github.ranga543:yelp-fusion-client:0.1.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.8.5'
+    implementation'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.6.2'
+
+
 
 }
