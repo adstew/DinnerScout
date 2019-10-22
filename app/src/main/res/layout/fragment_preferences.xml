@@ -8,22 +8,148 @@
         tools:context="test.company.dev.DinnerScout.fragments.PreferencesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_blank_fragment"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     <Button
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="109dp"
+            android:layout_marginBottom="32dp"
             android:text="Submit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+            android:id="@+id/distanceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="32dp"
+            android:text="Distance"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preferenceTitleTv" />
+
+    <TextView
+            android:id="@+id/preferenceTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Set your preferences"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/priceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Price"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/distanceTv"
+            app:layout_constraintTop_toBottomOf="@+id/distanceTv" />
+
+    <TextView
+            android:id="@+id/ratingTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Rating"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/priceTv"
+            app:layout_constraintTop_toBottomOf="@+id/priceTv" />
+
+    <TextView
+            android:id="@+id/categoriesTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Category"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@+id/ratingTv"
+            app:layout_constraintTop_toBottomOf="@+id/ratingTv" />
+
+    <EditText
+            android:id="@+id/distanceEt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="numberSigned"
+            app:layout_constraintBottom_toBottomOf="@+id/distanceTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/distanceTv" />
+
+    <Button
+            android:id="@+id/price3Btn"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
+            android:text="$$$"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/priceTv"
+            app:layout_constraintEnd_toEndOf="@+id/distanceEt"
+            app:layout_constraintTop_toTopOf="@+id/priceTv" />
+
+    <Button
+            android:id="@+id/price2Btn"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
+            android:text="$$"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/price3Btn"
+            app:layout_constraintEnd_toStartOf="@+id/price3Btn"
+            app:layout_constraintTop_toTopOf="@+id/price3Btn" />
+
+    <Button
+            android:id="@+id/price1Btn"
+            android:layout_width="75sp"
+            android:layout_height="wrap_content"
+            android:text="$"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/price2Btn"
+            app:layout_constraintEnd_toStartOf="@+id/price2Btn"
+            app:layout_constraintTop_toTopOf="@+id/price2Btn"
+            app:layout_constraintVertical_bias="0.0" />
+
+    <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingTv"
+            app:layout_constraintEnd_toEndOf="@+id/price3Btn"
+            app:layout_constraintTop_toTopOf="@+id/ratingTv" />
+
+    <AutoCompleteTextView
+            android:id="@+id/categoriesACTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Category"
+            app:layout_constraintBottom_toBottomOf="@+id/categoriesTv"
+            app:layout_constraintEnd_toStartOf="@+id/price3Btn"
+            app:layout_constraintStart_toStartOf="@+id/distanceEt"
+            app:layout_constraintTop_toTopOf="@+id/categoriesTv" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoriesRv"
+            android:layout_width="409dp"
+            android:layout_height="253dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/submitButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categoriesACTV" />
+
+    <Button
+            android:id="@+id/addCategoryBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="@+id/categoriesACTV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/categoriesACTV"
+            app:layout_constraintTop_toTopOf="@+id/categoriesACTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
