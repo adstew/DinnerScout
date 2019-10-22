@@ -46,45 +46,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
                 inflatePreferencesFragment()
             }
             R.id.findRestButton -> {
-                params.put("location", "New York City")
-//        params.put("latitude", lat.toString())
-//        params.put("longitutde", long.toString())
-//        params.put("latitude", "37.786882")
-//        params.put("longitude", "-122.399972")
-//        params.put("radius","400")
-//        params.put("open_now","true")
-//        params.put("price","1")
-
-
-//        val call = yelpFusionApi.getBusinessSearch(params)
-//        val response = call.execute()
-
-
-
-                val call = yelpFusionApi.getBusinessSearch(params);
-                call.enqueue(
-                object : Callback<SearchResponse> {
-
-                        override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-
-                        }
-                        override fun onResponse(
-                            call: Call<SearchResponse>,
-                            response: Response<SearchResponse>
-                        ) {
-                            if (response != null && response.isSuccessful) {
-//                    val searchResponse : SearchResponse? = call.execute().body()
-                                businesses = response.body()?.businesses ?: arrayListOf()
-                                Log.d("businessTag", businesses.size.toString())
-                                var a = 1 + 1
-                                var b = a + 1
-                                val randomRestaurant : Int = (0 until businesses.size-1).shuffled().first()
-                                Toast.makeText(applicationContext, businesses[randomRestaurant]?.name, Toast.LENGTH_SHORT).show()
-
-                            }
-
-                        }
-                    })
+                generateRestaurant()
 
 
             }
@@ -117,6 +79,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
     var params: HashMap<String, String> = HashMap()
     var apiFactory = YelpFusionApiFactory()
     var yelpFusionApi = apiFactory.createAPI(API_KEY)
+    var change = Boolean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -206,7 +169,45 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
     }
 
       fun generateRestaurant(){
+          params.put("location", "Tallahassee, FL")
+//        params.put("latitude", lat.toString())
+//        params.put("longitutde", long.toString())
+//        params.put("latitude", "37.786882")
+//        params.put("longitude", "-122.399972")
+          params.put("radius","4000")
+          params.put("open_now","true")
+//        params.put("price","1")
 
+
+//        val call = yelpFusionApi.getBusinessSearch(params)
+//        val response = call.execute()
+
+
+
+          val call = yelpFusionApi.getBusinessSearch(params);
+          call.enqueue(
+              object : Callback<SearchResponse> {
+
+                  override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+
+                  }
+                  override fun onResponse(
+                      call: Call<SearchResponse>,
+                      response: Response<SearchResponse>
+                  ) {
+                      if (response != null && response.isSuccessful) {
+//                    val searchResponse : SearchResponse? = call.execute().body()
+                          businesses = response.body()?.businesses ?: arrayListOf()
+                          Log.d("businessTag", businesses.size.toString())
+                          var a = 1 + 1
+                          var b = a + 1
+                          val randomRestaurant : Int = (0 until businesses.size-1).shuffled().first()
+                          Toast.makeText(applicationContext, businesses[randomRestaurant]?.name, Toast.LENGTH_SHORT).show()
+
+                      }
+
+                  }
+              })
 
     }
     override fun onFragmentInteraction(uri: Uri) {
