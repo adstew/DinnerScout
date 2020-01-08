@@ -11,25 +11,23 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.yelp.fusion.client.connection.YelpFusionApiFactory
-import com.yelp.fusion.client.models.SearchResponse
 import com.yelp.fusion.client.models.Business
-import kotlinx.android.synthetic.main.fragment_preferences.*
+import com.yelp.fusion.client.models.SearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -153,7 +151,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val manager = supportFragmentManager
         val trans = manager.beginTransaction()
         val fragment = LoginFragment()
-        trans.add(R.id.frame, fragment, LoginFragment.FRAGMENT_TAG).addToBackStack("tag")
+        trans.add(R.id.frame, fragment, LoginFragment.FRAGMENT_TAG).addToBackStack("login")
         trans.commit()
     }
 
@@ -163,7 +161,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val manager = supportFragmentManager
         val trans = manager.beginTransaction()
         val fragment = PreferencesFragment.newInstance(lat.toString(), long.toString())
-        trans.add(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("tag")
+        trans.replace(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("pref")
         trans.commit()
 
     }
