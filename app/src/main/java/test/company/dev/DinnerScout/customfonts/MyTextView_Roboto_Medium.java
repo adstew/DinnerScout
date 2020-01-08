@@ -1,13 +1,12 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatEditText;
 
-
-public class MyTextView_Roboto_Medium extends AppCompatEditText {
+public class MyTextView_Roboto_Medium extends TextView {
 
     public MyTextView_Roboto_Medium(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

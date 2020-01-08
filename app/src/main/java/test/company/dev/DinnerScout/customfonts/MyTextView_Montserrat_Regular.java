@@ -1,16 +1,15 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-
-import androidx.appcompat.widget.AppCompatEditText;
+import android.widget.TextView;
 
 /**
  * Created by wolfsoft1 on 31/1/18.
  */
 
-public class MyTextView_Montserrat_Regular extends AppCompatEditText {
+public class MyTextView_Montserrat_Regular extends TextView {
     public MyTextView_Montserrat_Regular(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();

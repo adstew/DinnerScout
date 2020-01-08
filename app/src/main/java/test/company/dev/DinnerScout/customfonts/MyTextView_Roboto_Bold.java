@@ -1,13 +1,12 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatEditText;
 
-
-public class MyTextView_Roboto_Bold extends AppCompatEditText {
+public class MyTextView_Roboto_Bold extends TextView {
 
     public MyTextView_Roboto_Bold(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -24,7 +23,7 @@ public class MyTextView_Roboto_Bold extends AppCompatEditText {
         init();
     }
 
-    public void init() {
+    private void init() {
         if (!isInEditMode()) {
             Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Roboto-Bold.ttf");
             setTypeface(tf);

@@ -1,16 +1,15 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-
-import androidx.appcompat.widget.AppCompatButton;
+import android.widget.Button;
 
 /**
  * Created by praja on 17-May-17.
  */
 
-public class Button_Roboto_Medium extends AppCompatButton {
+public class Button_Roboto_Medium extends Button {
 
     public Button_Roboto_Medium(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

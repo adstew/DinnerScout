@@ -1,12 +1,11 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatEditText;
-
-public class HelveticaNeueCondObl extends AppCompatEditText {
+public class HelveticaNeueCondObl extends TextView {
 
     public HelveticaNeueCondObl(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

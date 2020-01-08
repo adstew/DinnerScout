@@ -1,12 +1,11 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatEditText;
-
-public class TextViewSFProDisplayRegular extends AppCompatEditText {
+public class TextViewSFProDisplayRegular extends TextView {
 
     public TextViewSFProDisplayRegular(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

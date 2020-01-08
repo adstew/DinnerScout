@@ -1,14 +1,11 @@
-package test.company.dev.DinnerScout.customfonts;
+package customfonts;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.EditText;
 
-import androidx.appcompat.widget.AppCompatEditText;
-
-@SuppressLint("AppCompatCustomView")
-public class EditText_Roboto_Italic extends AppCompatEditText {
+public class EditText_Roboto_Italic extends EditText {
 
     public EditText_Roboto_Italic(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
