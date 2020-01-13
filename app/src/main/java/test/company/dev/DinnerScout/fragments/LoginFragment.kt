@@ -1,18 +1,17 @@
 
+
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import test.company.dev.DinnerScout.R
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-
+import test.company.dev.DinnerScout.R
 import test.company.dev.DinnerScout.fragments.SignupFragment
 
 
@@ -38,14 +37,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_login_new, container, false)
         mAuth = FirebaseAuth.getInstance()
         editTextEmail = view.findViewById(R.id.editTextEmail)
         editTextPassword = view.findViewById(R.id.editTextPassword)
         signUpButton = view.findViewById(R.id.signUpButton)
         loginButton = view.findViewById(R.id.loginButton)
-        signUpButton.setOnClickListener(this)
-        loginButton.setOnClickListener(this)
+
 
         return view
     }
@@ -97,11 +95,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
 
         //Auto Minimizes on screen keyboard
-        val inputManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(
-            activity!!.currentFocus!!.windowToken,
-            InputMethodManager.HIDE_NOT_ALWAYS
-        )
+//        val inputManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputManager.hideSoftInputFromWindow(
+//            activity!!.currentFocus!!.windowToken!!,
+//            InputMethodManager.HIDE_NOT_ALWAYS
+//        )
 
         when (view.id) {
             test.company.dev.DinnerScout.R.id.loginButton -> userLogin()
@@ -109,7 +107,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 val manager = activity!!.supportFragmentManager
                 val trans = manager.beginTransaction()
                 val fragment = SignupFragment()
-                trans.replace(R.id.frame, fragment, SignupFragment.FRAGMENT_TAG).addToBackStack("tag").commit()
+                trans.replace(R.id.frame, fragment, SignupFragment.FRAGMENT_TAG).addToBackStack("sign").commit()
             }
         }
     }
@@ -141,6 +139,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        signUpButton.setOnClickListener(this)
+        loginButton.setOnClickListener(this)
     }
 
 
