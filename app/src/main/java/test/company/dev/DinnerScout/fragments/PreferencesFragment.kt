@@ -188,14 +188,14 @@ class PreferencesFragment : Fragment(), View.OnClickListener {
 
         @JvmStatic
         fun newInstance(lat: String, long: String) :
-            PreferencesFragment {
-                val args = Bundle()
-                    args.putString("latitude", lat)
-                    args.putString("longitude", long)
-                    val fragment = PreferencesFragment()
-                    fragment.arguments = args
-                    return fragment
-                }
-            }
+                PreferencesFragment {
+            val args = Bundle()
+            args.putString("latitude", lat)
+            args.putString("longitude", long)
+            val fragment = PreferencesFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
+}
 

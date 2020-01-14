@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -83,9 +84,9 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inflateFirebaseLogin()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         preferencesButton = findViewById(R.id.preferencesButton)
         findRestaurantButton = findViewById(R.id.findRestButton)
-
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION,
