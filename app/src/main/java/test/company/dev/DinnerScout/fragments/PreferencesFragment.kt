@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_preferences.*
 import test.company.dev.DinnerScout.R
 import test.company.dev.DinnerScout.SimpleAdapter
 import test.company.dev.DinnerScout.SwipeToDeleteCallback
