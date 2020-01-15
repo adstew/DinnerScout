@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -83,9 +84,9 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         inflateFirebaseLogin()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         preferencesButton = findViewById(R.id.preferencesButton)
         findRestaurantButton = findViewById(R.id.findRestButton)
-
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -151,7 +152,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val manager = supportFragmentManager
         val trans = manager.beginTransaction()
         val fragment = LoginFragment()
-        trans.add(R.id.frame, fragment, LoginFragment.FRAGMENT_TAG).addToBackStack("login")
+        trans.add(R.id.frame, fragment, LoginFragment.FRAGMENT_TAG).addToBackStack("tag")
         trans.commit()
     }
 
@@ -161,19 +162,19 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val manager = supportFragmentManager
         val trans = manager.beginTransaction()
         val fragment = PreferencesFragment.newInstance(lat.toString(), long.toString())
-        trans.replace(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("pref")
+        trans.add(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("tag")
         trans.commit()
 
     }
 
-      fun generateRestaurant(){
-          params.put("location", "Tallahassee, FL")
+    fun generateRestaurant(){
+        params.put("location", "Tallahassee, FL")
 //        params.put("latitude", lat.toString())
 //        params.put("longitutde", long.toString())
 //        params.put("latitude", "37.786882")
 //        params.put("longitude", "-122.399972")
-          params.put("radius","4000")
-          params.put("open_now","true")
+        params.put("radius","4000")
+        params.put("open_now","true")
 //        params.put("price","1")
 
 
@@ -182,30 +183,30 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
 
 
 
-          val call = yelpFusionApi.getBusinessSearch(params);
-          call.enqueue(
-              object : Callback<SearchResponse> {
+        val call = yelpFusionApi.getBusinessSearch(params);
+        call.enqueue(
+            object : Callback<SearchResponse> {
 
-                  override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
 
-                  }
-                  override fun onResponse(
-                      call: Call<SearchResponse>,
-                      response: Response<SearchResponse>
-                  ) {
-                      if (response != null && response.isSuccessful) {
+                }
+                override fun onResponse(
+                    call: Call<SearchResponse>,
+                    response: Response<SearchResponse>
+                ) {
+                    if (response != null && response.isSuccessful) {
 //                    val searchResponse : SearchResponse? = call.execute().body()
-                          businesses = response.body()?.businesses ?: arrayListOf()
-                          Log.d("businessTag", businesses.size.toString())
-                          var a = 1 + 1
-                          var b = a + 1
-                          val randomRestaurant : Int = (0 until businesses.size-1).shuffled().first()
-                          Toast.makeText(applicationContext, businesses[randomRestaurant]?.name, Toast.LENGTH_SHORT).show()
+                        businesses = response.body()?.businesses ?: arrayListOf()
+                        Log.d("businessTag", businesses.size.toString())
+                        var a = 1 + 1
+                        var b = a + 1
+                        val randomRestaurant : Int = (0 until businesses.size-1).shuffled().first()
+                        Toast.makeText(applicationContext, businesses[randomRestaurant]?.name, Toast.LENGTH_SHORT).show()
 
-                      }
+                    }
 
-                  }
-              })
+                }
+            })
 
     }
     override fun onFragmentInteraction(uri: Uri) {
