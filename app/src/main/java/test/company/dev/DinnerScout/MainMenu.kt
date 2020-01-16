@@ -162,7 +162,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
         val manager = supportFragmentManager
         val trans = manager.beginTransaction()
         val fragment = PreferencesFragment.newInstance(lat.toString(), long.toString())
-        trans.add(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("tag")
+        trans.replace(R.id.frame, fragment, PreferencesFragment.FRAGMENT_TAG).addToBackStack("tag")
         trans.commit()
 
     }

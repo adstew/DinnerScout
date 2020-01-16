@@ -41,7 +41,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
         mAuth = FirebaseAuth.getInstance()
         editTextEmail = view.findViewById(R.id.editTextEmail)
         editTextPassword = view.findViewById(R.id.editTextPassword)
-        signUpButton = view.findViewById(R.id.signUpButton)
+        signUpButton = view.findViewById(R.id.signupButton)
         loginButton = view.findViewById(R.id.loginButton)
 
 
@@ -103,7 +103,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         when (view.id) {
             test.company.dev.DinnerScout.R.id.loginButton -> userLogin()
-            R.id.signUpButton -> {
+            R.id.signupButton -> {
                 val manager = activity!!.supportFragmentManager
                 val trans = manager.beginTransaction()
                 val fragment = SignupFragment()
