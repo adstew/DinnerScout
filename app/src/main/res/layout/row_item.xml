@@ -12,9 +12,10 @@
 
     <TextView
             android:id="@+id/rowName"
+            android:textColor="#000000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            tools:text="Awesome item"/>
+            tools:text="test item"/>
 
 </LinearLayout>

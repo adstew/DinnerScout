@@ -4,8 +4,10 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        tools:context="test.company.dev.DinnerScout.fragments.PreferencesFragment">
+        android:background="@drawable/homebg"
+        tools:context="test.company.dev.DinnerScout.fragments.PreferencesFragment"
+        android:clickable="true"
+        android:focusable="true">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -21,6 +23,7 @@
 
     <TextView
             android:id="@+id/distanceTv"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
@@ -36,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:text="Set your preferences"
+            android:textColor="#FFFFFF"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +47,8 @@
 
     <TextView
             android:id="@+id/priceTv"
+            android:textColor="#FFFFFF"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -53,6 +59,7 @@
 
     <TextView
             android:id="@+id/ratingTv"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -63,6 +70,7 @@
 
     <TextView
             android:id="@+id/categoriesTv"
+            android:textColor="#FFFFFF"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -74,10 +82,14 @@
     <EditText
             android:id="@+id/distanceEt"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="numberSigned"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#DDFFFFFF"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
             app:layout_constraintBottom_toBottomOf="@+id/distanceTv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/distanceTv" />

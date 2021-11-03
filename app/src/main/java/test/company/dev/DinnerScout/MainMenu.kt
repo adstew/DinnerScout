@@ -194,7 +194,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
                     call: Call<SearchResponse>,
                     response: Response<SearchResponse>
                 ) {
-                    if (response != null && response.isSuccessful) {
+                    if (response.isSuccessful) {
 //                    val searchResponse : SearchResponse? = call.execute().body()
                         businesses = response.body()?.businesses ?: arrayListOf()
                         Log.d("businessTag", businesses.size.toString())
@@ -213,7 +213,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
 
     }
 
-    //Method that starts notification
+    // Method that starts notification
     fun modifyNotification(runState: String) {
 
         val textContent: String
@@ -239,7 +239,7 @@ class MainMenu : AppCompatActivity(), View.OnClickListener,
     }
 
 
-    //Two of two methods for getting system level permissions for foreground process checking
+    // Two of two methods for getting system level permissions for foreground process checking
     @TargetApi(Build.VERSION_CODES.KITKAT)
     internal fun hasUsageStatsPermission(context: Context): Boolean {
         val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
