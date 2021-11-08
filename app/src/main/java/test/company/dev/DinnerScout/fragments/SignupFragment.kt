@@ -3,7 +3,6 @@ package test.company.dev.DinnerScout.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-
 import test.company.dev.DinnerScout.R
 
 class SignupFragment : Fragment(),View.OnClickListener {
@@ -94,7 +93,7 @@ class SignupFragment : Fragment(),View.OnClickListener {
 
 //                MainMenu.uid = mAuth!!.currentUser!!.uid
 
-                val manager = activity?.getSupportFragmentManager()
+                val manager = activity?.supportFragmentManager
                 val trans = manager?.beginTransaction()
                 trans?.remove(manager.findFragmentByTag(FRAGMENT_TAG)!!)
                 trans?.commit()

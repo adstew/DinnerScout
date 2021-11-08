@@ -15,7 +15,8 @@
             android:theme="@style/AppTheme"
             android:fullBackupContent="@xml/backup_descriptor">
 
-        <activity android:name="test.company.dev.DinnerScout.MainMenu" >
+        <activity android:name="test.company.dev.DinnerScout.MainMenu"
+                android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

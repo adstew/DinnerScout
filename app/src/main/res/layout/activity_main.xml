@@ -10,14 +10,29 @@
             android:id="@+id/titleScout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".activities.MainMenu">
+            android:background="@drawable/homebg"
+            tools:context=".activities.MainMenu"
+            >
 
-        <TextView
+        <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="335dp"
+                android:layout_height="63dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="12dp"
+                android:src="@drawable/logo_final"
+                app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dinner Scout"
-                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
@@ -32,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="67dp"
-                android:text="Find Restaurant"
+                android:text="@string/find_restaurant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -42,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="63dp"
-                android:text="Preferences"
+                android:text="@string/preferences"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
